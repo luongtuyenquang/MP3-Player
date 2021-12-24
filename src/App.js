@@ -1,6 +1,7 @@
 import NavMenu from "./components/NavMenu/NavMenu";
 import Routes from "./routes/Routes";
 import { BrowserRouter as Router } from "react-router-dom";
+import './scss/index.scss';
 
 function App() {
     return (

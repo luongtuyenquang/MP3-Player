@@ -1,7 +1,10 @@
+import './HomePage.scss';
 
 function HomePage() {
     return (
-        <p>Home Page</p>
+        <section className="home">
+            <h1>Home</h1>
+        </section>
     )
 }
 
