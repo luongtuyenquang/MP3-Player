@@ -1,7 +1,9 @@
 
 function NavMenu() {
     return (
-        <h1>NavMenu</h1>
+        <nav className="nav">
+            <p>NavMenu</p>
+        </nav>
     )
 }
 

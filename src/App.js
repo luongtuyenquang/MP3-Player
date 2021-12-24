@@ -1,6 +1,6 @@
 import NavMenu from "./components/NavMenu/NavMenu";
 import Routes from "./routes/Routes";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
     return (
