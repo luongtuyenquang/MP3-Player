@@ -1,10 +1,16 @@
-
+import NavMenu from "./components/NavMenu/NavMenu";
+import Routes from "./routes/Routes";
+import { HashRouter as Router } from "react-router-dom";
 
 function App() {
     return (
-        <div className="App">
-            
-        </div>
+        <Router>
+            <div className="App">
+                <NavMenu />
+
+                <Routes />
+            </div>
+        </Router>
     );
 }
 
