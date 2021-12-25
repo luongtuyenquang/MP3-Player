@@ -1,0 +1,101 @@
+@import '../../../scss/variable';
+
+.music-playing {
+    &__group {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem 0;
+        height: $height-form-music;
+        border-radius: 20px;
+        box-shadow: 0px 2px 6px #00000014;
+    }
+
+    &__img {
+        width: 130px;
+        border-radius: 11px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 20px -20px;
+    }
+
+    &__song {
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 2rem 0 1rem;
+    }
+
+    &__singer {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #000000bd;
+        padding-bottom: 4rem;
+    }
+
+    &__range {
+        input {
+            width: calc(#{$width-control} - 3rem);
+            -webkit-appearance: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: -14px;
+            height: 0.2rem;
+            background: #bfc2c9;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 15px;
+                width: 15px;
+                border-radius: 50%;
+                background: #34e03c;
+                margin-top: 0px;
+              }
+        }
+    }
+
+    &__timer {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-size: 1.1rem;
+            padding-top: 0.5rem;
+        }
+    }
+
+    &__control {
+        display: flex;
+        align-items: center;
+        width: $width-control;
+        justify-content: space-between;
+        padding-top: 4rem;
+
+        &__icon {
+            font-size: 2.5rem;
+            color: #000000b5;
+            margin: 0 1.5rem 0;
+            cursor: pointer;
+            padding: 0.3rem;
+
+            &:hover {
+                background-color: #d9d5d5e6;
+                border-radius: 50%;
+            }
+
+            &:first-child, &:last-child {
+                font-size: 2rem;
+                padding: 0.5rem;
+            }
+
+            &--color {
+                border-radius: 50%;
+                border: 3px solid #f8495aab;
+                padding: 0.5rem;
+
+                &:hover {
+                    color: #f8495aab;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}

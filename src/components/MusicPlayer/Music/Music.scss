@@ -1,0 +1,12 @@
+
+.music {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-column-gap: 3rem;
+
+    &__heading {
+        font-size: 1.7rem;
+        font-weight: 500;
+        padding-bottom: 3rem;
+    }
+}

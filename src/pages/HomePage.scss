@@ -1,7 +1,7 @@
 @import '../scss/variable';
 
 .home {
-    background-color: $bg-main;
+    background: linear-gradient(to bottom, $bg-main, #d5cccf94);
     flex: 1;
     padding: 2rem;
 }
