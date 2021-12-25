@@ -1,9 +1,10 @@
+import SearchBar from '../components/SearchBar/SeachBar';
 import './HomePage.scss';
 
 function HomePage() {
     return (
-        <section className="home">
-            <h1>Home</h1>
+        <section className='home'>
+            <SearchBar />
         </section>
     )
 }
