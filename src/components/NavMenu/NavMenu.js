@@ -1,8 +1,12 @@
 import './NavMenu.scss';
+import logo from '../../assets/images/logo-app.svg'
 
 function NavMenu() {
     return (
         <nav className='nav'>
+            <a href='#1'>
+                <img src={logo} alt='' className='nav__logo'/>
+            </a>
             <ul className='nav__menu'>
                 <li>
                     <a href='#1'>

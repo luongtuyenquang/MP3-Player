@@ -1,4 +1,23 @@
+@import '../../../scss/variable';
 
 .music-list {
-    background-color: lightgrey;
+    &__list {
+        height: $height-form-music;
+        overflow-x: auto;
+        padding-right: 1.5rem;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 5px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: #4d0072;
+        }
+    }
 }

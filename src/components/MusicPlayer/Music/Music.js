@@ -1,5 +1,5 @@
 import MusicPlaying from "../MusicPlaying/MusicPlaying"
-import MusicList from "../MusicList/MusicList"
+import MusicList from "../MusicList/MusicList";
 import './Music.scss';
 
 function Music() {
