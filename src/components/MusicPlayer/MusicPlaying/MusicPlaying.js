@@ -1,7 +1,7 @@
 import './MusicPlaying.scss';
 import img1 from '../../../assets/images/song_1.png'
 import song1 from '../../../assets/mp3/song_1.mp3'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function MusicPlaying() {
 
@@ -10,6 +10,35 @@ function MusicPlaying() {
     const handlePlayPause = () => {
         setPlaying(!playing)
     }
+
+    useEffect(() => {
+        const play = document.querySelector('.bx-play')
+        const pause = document.querySelector('.bx-pause')
+        const song = document.querySelector('#song')
+
+        function playSong() {
+            song.play()
+        }
+
+        function pauseSong() {
+            song.pause()
+        }
+
+        if(playing) {
+            play.addEventListener('click', playSong)
+        } else {
+            pause.addEventListener('click', pauseSong)
+        }
+
+        return () => {
+            if(playing) {
+                play.removeEventListener('click', playSong)
+            } else {
+                pause.removeEventListener('click', pauseSong)
+            }
+        }
+
+    }, [playing])
 
     return (
         <div className='music-playing'>
@@ -20,7 +49,7 @@ function MusicPlaying() {
                 <p className='music-playing__singer'>Lê Bảo Bình</p>
                 <div className='music-playing__range'>
                     <input type='range' />
-                    <audio src={song1} />
+                    <audio src={song1} id='song'/>
                     <div className='music-playing__timer'>
                         <span>4:00</span>
                         <span>2:33</span>
