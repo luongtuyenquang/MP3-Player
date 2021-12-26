@@ -5,6 +5,7 @@ import './MusicPlaying.scss';
 function MusicPlaying({music}) {
 
     const [playing, setPlaying] = useState(true)
+    const [indexSong, setIndexSong] = useState(0)
 
     const handlePlayPause = () => {
         setPlaying(!playing)
@@ -13,6 +14,7 @@ function MusicPlaying({music}) {
     useEffect(() => {
         const play = document.querySelector('.bx-play')
         const pause = document.querySelector('.bx-pause')
+        const btnNextSong = document.querySelector('.bx-fast-forward')
         const song = document.querySelector('#song')
 
         function playSong() {
@@ -23,13 +25,28 @@ function MusicPlaying({music}) {
             song.pause()
         }
 
+        function nextSong() {
+            if(indexSong + 1 === music.length) {
+                setIndexSong(0)
+                song.play()
+            } else {
+                setIndexSong(indexSong + 1)
+                setPlaying(true)
+                song.play()
+            }
+        }
+
         if(playing) {
             play.addEventListener('click', playSong)
         } else {
             pause.addEventListener('click', pauseSong)
         }
 
+        btnNextSong.addEventListener('click', nextSong)
+
         return () => {
+            btnNextSong.removeEventListener('click', nextSong)
+
             if(playing) {
                 play.removeEventListener('click', playSong)
             } else {
@@ -37,18 +54,27 @@ function MusicPlaying({music}) {
             }
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playing])
+
+    // const handleNextSong = () => {
+    //     const song = document.querySelector('#song')
+
+    //     song.play()
+
+        
+    // }
 
     return (
         <div className='music-playing'>
             <p className='music__heading'>Bài hát hiện tại</p>
             <div className='music-playing__group'>
-                <img src={music[0].image} alt='' className='music-playing__img' />
-                <p className='music-playing__song'>{music[0].name}</p>
-                <p className='music-playing__singer'>{music[0].singer}</p>
+                <img src={music[indexSong].image} alt='' className='music-playing__img' />
+                <p className='music-playing__song'>{music[indexSong].name}</p>
+                <p className='music-playing__singer'>{music[indexSong].singer}</p>
                 <div className='music-playing__range'>
                     <input type='range' />
-                    <audio src={music[0].mp3} id='song' />
+                    <audio src={music[indexSong].mp3} id='song' />
                     <div className='music-playing__timer'>
                         <span>4:00</span>
                         <span>2:33</span>
@@ -62,7 +88,11 @@ function MusicPlaying({music}) {
                         onClick={handlePlayPause}
                     >
                     </i>
-                    <i className='bx bx-fast-forward music-playing__control__icon'></i>
+                    <i 
+                        className='bx bx-fast-forward music-playing__control__icon'
+                        onClick={handlePlayPause}
+                    >
+                    </i>
                     <i className='bx bx-repeat music-playing__control__icon'></i>
                 </div>
             </div>
