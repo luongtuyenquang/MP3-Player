@@ -15,8 +15,10 @@ function MusicPlaying({music}) {
         const play = document.querySelector('.bx-play')
         const pause = document.querySelector('.bx-pause')
         const btnNextSong = document.querySelector('.bx-fast-forward')
+        const btnPrevSong = document.querySelector('.bx-rewind')
         const song = document.querySelector('#song')
 
+        // Play and Pause Song
         function playSong() {
             song.play()
         }
@@ -25,9 +27,17 @@ function MusicPlaying({music}) {
             song.pause()
         }
 
+        if(playing) {
+            play.addEventListener('click', playSong)
+        } else {
+            pause.addEventListener('click', pauseSong)
+        }
+
+        // Next Song
         function nextSong() {
             if(indexSong + 1 === music.length) {
                 setIndexSong(0)
+                setPlaying(true)
                 song.play()
             } else {
                 setIndexSong(indexSong + 1)
@@ -36,16 +46,27 @@ function MusicPlaying({music}) {
             }
         }
 
-        if(playing) {
-            play.addEventListener('click', playSong)
-        } else {
-            pause.addEventListener('click', pauseSong)
-        }
-
         btnNextSong.addEventListener('click', nextSong)
 
+        // Previous Song
+        function prevSong() {
+            if(indexSong - 1 < 0) {
+                setIndexSong(music.length - 1)
+                setPlaying(true)
+                song.play()
+            } else {
+                setIndexSong(indexSong - 1)
+                setPlaying(true)
+                song.play()
+            }
+        }
+
+        btnPrevSong.addEventListener('click', prevSong)
+
+        // Cleanup
         return () => {
             btnNextSong.removeEventListener('click', nextSong)
+            btnPrevSong.removeEventListener('click', prevSong)
 
             if(playing) {
                 play.removeEventListener('click', playSong)
@@ -56,14 +77,6 @@ function MusicPlaying({music}) {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playing])
-
-    // const handleNextSong = () => {
-    //     const song = document.querySelector('#song')
-
-    //     song.play()
-
-        
-    // }
 
     return (
         <div className='music-playing'>
@@ -82,7 +95,11 @@ function MusicPlaying({music}) {
                 </div>
                 <div className='music-playing__control'>
                     <i className='bx bx-shuffle music-playing__control__icon'></i>
-                    <i className='bx bx-rewind music-playing__control__icon'></i>
+                    <i 
+                        className='bx bx-rewind music-playing__control__icon' 
+                        onClick={handlePlayPause}
+                    >
+                    </i>
                     <i 
                         className={`bx bx-${playing ? 'play' : 'pause'} music-playing__control__icon music-playing__control__icon--color`} 
                         onClick={handlePlayPause}
