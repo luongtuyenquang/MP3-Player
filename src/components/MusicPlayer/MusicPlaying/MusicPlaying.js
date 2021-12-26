@@ -1,9 +1,8 @@
-import './MusicPlaying.scss';
-import img1 from '../../../assets/images/song_1.png'
-import song1 from '../../../assets/mp3/song_1.mp3'
+import { connect } from "react-redux"
 import { useEffect, useState } from 'react';
+import './MusicPlaying.scss';
 
-function MusicPlaying() {
+function MusicPlaying({music}) {
 
     const [playing, setPlaying] = useState(true)
 
@@ -44,12 +43,12 @@ function MusicPlaying() {
         <div className='music-playing'>
             <p className='music__heading'>Bài hát hiện tại</p>
             <div className='music-playing__group'>
-                <img src={img1} alt='' className='music-playing__img' />
-                <p className='music-playing__song'>Hỏi Thăm Nhau</p>
-                <p className='music-playing__singer'>Lê Bảo Bình</p>
+                <img src={music[0].image} alt='' className='music-playing__img' />
+                <p className='music-playing__song'>{music[0].name}</p>
+                <p className='music-playing__singer'>{music[0].singer}</p>
                 <div className='music-playing__range'>
                     <input type='range' />
-                    <audio src={song1} id='song'/>
+                    <audio src={music[0].mp3} id='song' />
                     <div className='music-playing__timer'>
                         <span>4:00</span>
                         <span>2:33</span>
@@ -71,4 +70,10 @@ function MusicPlaying() {
     )
 }
 
-export default MusicPlaying
+const mapStateToProps = state => {
+    return {
+        music: state.musicReducer
+    }
+}
+
+export default connect(mapStateToProps, null)(MusicPlaying)

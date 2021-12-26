@@ -4,10 +4,14 @@ import App from './App';
 import './assets/icon/css/boxicons.min.css'
 import './scss/index.scss'
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import store from './redux/store/index'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
