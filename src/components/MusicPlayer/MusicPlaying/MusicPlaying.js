@@ -84,24 +84,36 @@ function MusicPlaying({music}) {
         }, 1000)
 
         // Song Percent on Range Bar
-        song.ontimeupdate = function() {
+        function handlePercentSong() {
             // rangeBar.value = song.currentTime
             const rangePercent = Math.floor(song.currentTime / song.duration * 100)
             rangeBar.value = rangePercent
         }
+        song.addEventListener('timeupdate', handlePercentSong)
 
         // Rewind
-        rangeBar.oninput = function(e) {
+        function handleRewind(e) {
             let percentSong = 0;
             percentSong = e.target.value;
             const seekTime = percentSong / 100 * song.duration;
             song.currentTime = seekTime;
-          };
+        }
+        rangeBar.addEventListener('input', handleRewind)
+
+          // Ended Song
+        function handleEndedSong() {
+            nextSong()
+            setPlaying(false)
+        }
+        song.addEventListener('ended', handleEndedSong)
 
         // Cleanup
         return () => {
             btnNextSong.removeEventListener('click', nextSong)
             btnPrevSong.removeEventListener('click', prevSong)
+            song.removeEventListener('ended', handleEndedSong)
+            rangeBar.removeEventListener('input', handleRewind)
+            song.removeEventListener('timeupdate', handlePercentSong)
             clearInterval(remainingSong)
 
             if(playing) {
