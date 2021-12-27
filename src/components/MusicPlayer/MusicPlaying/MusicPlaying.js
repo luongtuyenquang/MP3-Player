@@ -7,6 +7,7 @@ function MusicPlaying({music}) {
     const [playing, setPlaying] = useState(true)
     const [indexSong, setIndexSong] = useState(0)
     const [durationTimer, setDurationTimer] = useState(null)
+    const [remainingTimer, setRemainingTimer] = useState(null)
 
     const handlePlayPause = () => {
         setPlaying(!playing)
@@ -76,10 +77,16 @@ function MusicPlaying({music}) {
             setDurationTimer(formatTimer(song.duration))
         };
 
+        // Remaining Song
+        const remainingSong = setInterval(() => {
+            setRemainingTimer(formatTimer(song.currentTime))
+        }, 1000)
+
         // Cleanup
         return () => {
             btnNextSong.removeEventListener('click', nextSong)
             btnPrevSong.removeEventListener('click', prevSong)
+            clearInterval(remainingSong)
 
             if(playing) {
                 play.removeEventListener('click', playSong)
@@ -103,7 +110,7 @@ function MusicPlaying({music}) {
                     <audio src={music[indexSong].mp3} id='song' preload="metadata" />
                     <div className='music-playing__timer'>
                         <span>{durationTimer}</span>
-                        <span>2:33</span>
+                        <span>{remainingTimer}</span>
                     </div>
                 </div>
                 <div className='music-playing__control'>
