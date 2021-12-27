@@ -6,17 +6,18 @@ function MusicPlaying({music}) {
 
     const [playing, setPlaying] = useState(true)
     const [indexSong, setIndexSong] = useState(0)
+    const [durationTimer, setDurationTimer] = useState(null)
 
     const handlePlayPause = () => {
         setPlaying(!playing)
     }
 
     useEffect(() => {
+        const song = document.querySelector('#song')
         const play = document.querySelector('.bx-play')
         const pause = document.querySelector('.bx-pause')
         const btnNextSong = document.querySelector('.bx-fast-forward')
         const btnPrevSong = document.querySelector('.bx-rewind')
-        const song = document.querySelector('#song')
 
         // Play and Pause Song
         function playSong() {
@@ -63,6 +64,18 @@ function MusicPlaying({music}) {
 
         btnPrevSong.addEventListener('click', prevSong)
 
+        // Duration Song
+        function formatTimer(timer) {
+            const minutes = Math.floor(timer / 60)
+            const seconds = Math.floor(timer - minutes * 60)
+            const formatSecond = `0${seconds}`.slice(-2)
+            return `${minutes}:${formatSecond}`
+        }
+        
+        song.onloadedmetadata = function() {
+            setDurationTimer(formatTimer(song.duration))
+        };
+
         // Cleanup
         return () => {
             btnNextSong.removeEventListener('click', nextSong)
@@ -87,9 +100,9 @@ function MusicPlaying({music}) {
                 <p className='music-playing__singer'>{music[indexSong].singer}</p>
                 <div className='music-playing__range'>
                     <input type='range' />
-                    <audio src={music[indexSong].mp3} id='song' />
+                    <audio src={music[indexSong].mp3} id='song' preload="metadata" />
                     <div className='music-playing__timer'>
-                        <span>4:00</span>
+                        <span>{durationTimer}</span>
                         <span>2:33</span>
                     </div>
                 </div>
