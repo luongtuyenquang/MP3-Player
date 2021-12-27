@@ -15,6 +15,7 @@ function MusicPlaying({music}) {
 
     useEffect(() => {
         const song = document.querySelector('#song')
+        const rangeBar = document.querySelector('#range')
         const play = document.querySelector('.bx-play')
         const pause = document.querySelector('.bx-pause')
         const btnNextSong = document.querySelector('.bx-fast-forward')
@@ -65,7 +66,7 @@ function MusicPlaying({music}) {
 
         btnPrevSong.addEventListener('click', prevSong)
 
-        // Duration Song
+        // Song Duration
         function formatTimer(timer) {
             const minutes = Math.floor(timer / 60)
             const seconds = Math.floor(timer - minutes * 60)
@@ -77,10 +78,25 @@ function MusicPlaying({music}) {
             setDurationTimer(formatTimer(song.duration))
         };
 
-        // Remaining Song
+        // Song Remaining Time
         const remainingSong = setInterval(() => {
             setRemainingTimer(formatTimer(song.currentTime))
         }, 1000)
+
+        // Song Percent on Range Bar
+        song.ontimeupdate = function() {
+            // rangeBar.value = song.currentTime
+            const rangePercent = Math.floor(song.currentTime / song.duration * 100)
+            rangeBar.value = rangePercent
+        }
+
+        // Rewind
+        rangeBar.oninput = function(e) {
+            let percentSong = 0;
+            percentSong = e.target.value;
+            const seekTime = percentSong / 100 * song.duration;
+            song.currentTime = seekTime;
+          };
 
         // Cleanup
         return () => {
@@ -106,7 +122,7 @@ function MusicPlaying({music}) {
                 <p className='music-playing__song'>{music[indexSong].name}</p>
                 <p className='music-playing__singer'>{music[indexSong].singer}</p>
                 <div className='music-playing__range'>
-                    <input type='range' />
+                    <input type='range' id='range' defaultValue='0' step='1' min='0' max='100' />
                     <audio src={music[indexSong].mp3} id='song' preload="metadata" />
                     <div className='music-playing__timer'>
                         <span>{durationTimer}</span>

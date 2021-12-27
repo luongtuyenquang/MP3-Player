@@ -1,8 +1,8 @@
-import hoi_tham_nhau_img from '../../assets/images/hoi_tham_nhau.jpg'
-import hoi_tham_nhau_mp3 from '../../assets/mp3/hoi_tham_nhau.mp3'
-
 import thay_toi_yeu_co_ay_img from '../../assets/images/thay_toi_yeu_co_ay.jpg'
 import thay_toi_yeu_co_ay_mp3 from '../../assets/mp3/thay_toi_yeu_co_ay.mp3'
+
+import hoi_tham_nhau_img from '../../assets/images/hoi_tham_nhau.jpg'
+import hoi_tham_nhau_mp3 from '../../assets/mp3/hoi_tham_nhau.mp3'
 
 import het_thuong_can_nho_img from '../../assets/images/het_thuong_can_nho.jpg'
 import het_thuong_can_nho_mp3 from '../../assets/mp3/het_thuong_can_nho.mp3'
@@ -16,17 +16,17 @@ import ai_la_nguoi_thuong_em_mp3 from '../../assets/mp3/ai_la_nguoi_thuong_em.mp
 const initialState = [
     {
         id: 1,
-        name: 'Hỏi Thăm Nhau',
-        mp3: hoi_tham_nhau_mp3,
-        image: hoi_tham_nhau_img,
-        singer: 'Lê Bảo Bình',
-    },
-    {
-        id: 2,
         name: 'Thay Tôi Yêu Cô Ấy',
         mp3: thay_toi_yeu_co_ay_mp3,
         image: thay_toi_yeu_co_ay_img,
         singer: 'Thanh Hưng',
+    },
+    {
+        id: 2,
+        name: 'Hỏi Thăm Nhau',
+        mp3: hoi_tham_nhau_mp3,
+        image: hoi_tham_nhau_img,
+        singer: 'Lê Bảo Bình',
     },
     {
         id: 3,
