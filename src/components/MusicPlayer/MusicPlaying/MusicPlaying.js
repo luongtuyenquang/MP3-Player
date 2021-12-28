@@ -4,13 +4,14 @@ import './MusicPlaying.scss';
 
 function MusicPlaying({music}) {
 
-    const [playing, setPlaying] = useState(true)
+    const [isPlaying, setIsPlaying] = useState(true)
+    const [isRepeat, setIsRepeat] = useState(false)
     const [indexSong, setIndexSong] = useState(0)
     const [durationTimer, setDurationTimer] = useState(null)
     const [remainingTimer, setRemainingTimer] = useState(null)
 
     const handlePlayPause = () => {
-        setPlaying(!playing)
+        setIsPlaying(!isPlaying)
     }
 
     useEffect(() => {
@@ -20,6 +21,7 @@ function MusicPlaying({music}) {
         const pause = document.querySelector('.bx-pause')
         const btnNextSong = document.querySelector('.bx-fast-forward')
         const btnPrevSong = document.querySelector('.bx-rewind')
+        const btnRepeatSong = document.querySelector('.bx-repeat')
 
         // Play and Pause Song
         function playSong() {
@@ -30,7 +32,7 @@ function MusicPlaying({music}) {
             song.pause()
         }
 
-        if(playing) {
+        if(isPlaying) {
             play.addEventListener('click', playSong)
         } else {
             pause.addEventListener('click', pauseSong)
@@ -40,11 +42,11 @@ function MusicPlaying({music}) {
         function nextSong() {
             if(indexSong + 1 === music.length) {
                 setIndexSong(0)
-                setPlaying(true)
+                setIsPlaying(true)
                 song.play()
             } else {
                 setIndexSong(indexSong + 1)
-                setPlaying(true)
+                setIsPlaying(true)
                 song.play()
             }
         }
@@ -55,11 +57,11 @@ function MusicPlaying({music}) {
         function prevSong() {
             if(indexSong - 1 < 0) {
                 setIndexSong(music.length - 1)
-                setPlaying(true)
+                setIsPlaying(true)
                 song.play()
             } else {
                 setIndexSong(indexSong - 1)
-                setPlaying(true)
+                setIsPlaying(true)
                 song.play()
             }
         }
@@ -81,7 +83,7 @@ function MusicPlaying({music}) {
         // Song Remaining Time
         const remainingSong = setInterval(() => {
             setRemainingTimer(formatTimer(song.currentTime))
-        }, 1000)
+        }, 500)
 
         // Song Percent on Range Bar
         function handlePercentSong() {
@@ -102,10 +104,21 @@ function MusicPlaying({music}) {
 
           // Ended Song
         function handleEndedSong() {
-            nextSong()
-            setPlaying(false)
+            if(isRepeat) {
+                song.play()
+            } else {
+                nextSong()
+                setIsPlaying(false)
+            }
         }
         song.addEventListener('ended', handleEndedSong)
+
+        // Repeat Song
+        function handleRepeatSong() {
+            setIsRepeat(!isRepeat)
+        }
+        btnRepeatSong.addEventListener('click', handleRepeatSong)
+        
 
         // Cleanup
         return () => {
@@ -114,17 +127,18 @@ function MusicPlaying({music}) {
             song.removeEventListener('ended', handleEndedSong)
             rangeBar.removeEventListener('input', handleRewind)
             song.removeEventListener('timeupdate', handlePercentSong)
+            btnRepeatSong.removeEventListener('click', handleRepeatSong)
             clearInterval(remainingSong)
 
-            if(playing) {
+            if(isPlaying) {
                 play.removeEventListener('click', playSong)
             } else {
                 pause.removeEventListener('click', pauseSong)
             }
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [playing])
+    }, [isPlaying, isRepeat])
+
 
     return (
         <div className='music-playing'>
@@ -149,7 +163,7 @@ function MusicPlaying({music}) {
                     >
                     </i>
                     <i 
-                        className={`bx bx-${playing ? 'play' : 'pause'} music-playing__control__icon music-playing__control__icon--color`} 
+                        className={`bx bx-${isPlaying ? 'play' : 'pause'} music-playing__control__icon music-playing__control__icon--color`} 
                         onClick={handlePlayPause}
                     >
                     </i>
@@ -158,7 +172,11 @@ function MusicPlaying({music}) {
                         onClick={handlePlayPause}
                     >
                     </i>
-                    <i className='bx bx-repeat music-playing__control__icon'></i>
+                    <i 
+                        className='bx bx-repeat music-playing__control__icon'
+                        style={{color: `${isRepeat ? '#f8495a': ''}`}}
+                    >
+                    </i>
                 </div>
             </div>
         </div>

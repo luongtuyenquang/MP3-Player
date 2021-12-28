@@ -28,7 +28,7 @@ function SearchBar() {
         <section className='search'>
             <div className='search__group'>
                 <i className='bx bx-search'></i>
-                <input type='text' className='search__input' placeholder='Search' />
+                <input type='text' className='search__input' placeholder='Nhập tên bài hát hoặc ca sĩ' />
             </div>
         </section>
     )

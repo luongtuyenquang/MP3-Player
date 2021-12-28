@@ -5,10 +5,10 @@
         display: flex;
         align-items: center;
         background-color: white;
-        width: 250px;
+        width: 300px;
         border-radius: 10px;
         padding: 0 1.5rem;
-        box-shadow: 0px 0px 10px 1px #00000008;
+        box-shadow: 0px 0px 10px 1px #00000026;
 
         i {
             font-size: 1.6rem;
@@ -17,7 +17,7 @@
         }
 
         &.focus {
-            box-shadow: 0px 0px 2px 0px $color-main;
+            box-shadow: 0px 0px 10px 1px #0000004a;
         }
     }
 
