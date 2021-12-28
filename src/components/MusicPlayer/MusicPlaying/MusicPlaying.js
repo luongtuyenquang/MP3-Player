@@ -6,6 +6,7 @@ function MusicPlaying({music}) {
 
     const [isPlaying, setIsPlaying] = useState(true)
     const [isRepeat, setIsRepeat] = useState(false)
+    const [isShuffle, setIsShuffle] = useState(false)
     const [indexSong, setIndexSong] = useState(0)
     const [durationTimer, setDurationTimer] = useState(null)
     const [remainingTimer, setRemainingTimer] = useState(null)
@@ -22,6 +23,7 @@ function MusicPlaying({music}) {
         const btnNextSong = document.querySelector('.bx-fast-forward')
         const btnPrevSong = document.querySelector('.bx-rewind')
         const btnRepeatSong = document.querySelector('.bx-repeat')
+        const btnShuffleSong = document.querySelector('.bx-shuffle')
 
         // Play and Pause Song
         function playSong() {
@@ -44,6 +46,9 @@ function MusicPlaying({music}) {
                 setIndexSong(0)
                 setIsPlaying(true)
                 song.play()
+            } else if(isShuffle) {
+                handleShuffleSong()
+                setIsPlaying(true)
             } else {
                 setIndexSong(indexSong + 1)
                 setIsPlaying(true)
@@ -59,11 +64,15 @@ function MusicPlaying({music}) {
                 setIndexSong(music.length - 1)
                 setIsPlaying(true)
                 song.play()
+            } else if(isShuffle) {
+                handleShuffleSong()
+                setIsPlaying(true)
             } else {
                 setIndexSong(indexSong - 1)
                 setIsPlaying(true)
                 song.play()
             }
+            
         }
 
         btnPrevSong.addEventListener('click', prevSong)
@@ -106,10 +115,13 @@ function MusicPlaying({music}) {
         function handleEndedSong() {
             if(isRepeat) {
                 song.play()
+            } else if(isShuffle) {
+                handleShuffleSong()
             } else {
                 nextSong()
                 setIsPlaying(false)
             }
+            
         }
         song.addEventListener('ended', handleEndedSong)
 
@@ -119,6 +131,20 @@ function MusicPlaying({music}) {
         }
         btnRepeatSong.addEventListener('click', handleRepeatSong)
         
+        // Shuffle Song
+        function handleShuffleSong() {
+            let newIndexSong
+            do {
+                newIndexSong = Math.floor(Math.random() * music.length)
+            } while (newIndexSong === indexSong)
+            setIndexSong(newIndexSong)
+            song.play()
+        }
+
+        function handleTrueFalseShuffle() {
+            setIsShuffle(!isShuffle)
+        }
+        btnShuffleSong.addEventListener('click', handleTrueFalseShuffle)
 
         // Cleanup
         return () => {
@@ -128,6 +154,7 @@ function MusicPlaying({music}) {
             rangeBar.removeEventListener('input', handleRewind)
             song.removeEventListener('timeupdate', handlePercentSong)
             btnRepeatSong.removeEventListener('click', handleRepeatSong)
+            btnShuffleSong.removeEventListener('click', handleTrueFalseShuffle)
             clearInterval(remainingSong)
 
             if(isPlaying) {
@@ -137,7 +164,7 @@ function MusicPlaying({music}) {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPlaying, isRepeat])
+    }, [isPlaying, isRepeat, isShuffle])
 
 
     return (
@@ -156,7 +183,11 @@ function MusicPlaying({music}) {
                     </div>
                 </div>
                 <div className='music-playing__control'>
-                    <i className='bx bx-shuffle music-playing__control__icon'></i>
+                    <i 
+                        className='bx bx-shuffle music-playing__control__icon'
+                        style={{color: `${isShuffle ? '#f8495a': ''}`}}
+                    >
+                    </i>
                     <i 
                         className='bx bx-rewind music-playing__control__icon' 
                         onClick={handlePlayPause}
