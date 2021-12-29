@@ -1,8 +1,9 @@
 import { connect } from "react-redux"
 import { useEffect, useState } from 'react';
 import './MusicPlaying.scss';
+import { activeSong } from "../../../redux/actions";
 
-function MusicPlaying({music}) {
+function MusicPlaying({music, handleActiveSong}) {
 
     const [isPlaying, setIsPlaying] = useState(true)
     const [isRepeat, setIsRepeat] = useState(false)
@@ -146,6 +147,9 @@ function MusicPlaying({music}) {
         }
         btnShuffleSong.addEventListener('click', handleTrueFalseShuffle)
 
+        // Active Song
+        handleActiveSong(indexSong)
+
         // Cleanup
         return () => {
             btnNextSong.removeEventListener('click', nextSong)
@@ -214,10 +218,18 @@ function MusicPlaying({music}) {
     )
 }
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        handleActiveSong: (indexSong) => {
+            dispatch(activeSong(indexSong))
+        }
+    }
+}
+
 const mapStateToProps = state => {
     return {
         music: state.musicReducer
     }
 }
 
-export default connect(mapStateToProps, null)(MusicPlaying)
+export default connect(mapStateToProps, mapDispatchToProps)(MusicPlaying)
