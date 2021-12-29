@@ -1,13 +1,23 @@
 import { connect } from "react-redux"
 import './MusicItem.scss';
+import { playSongWhenClick } from "../../../redux/actions";
 
-function MusicItem({music, indexCurrent}) {
+function MusicItem({music, indexCurrent, handlePlaySongWhenClick}) {
+    const handleClickSong = (index) => {
+        handlePlaySongWhenClick(index)
+    }
+
     return (
         <>
             {
                 music.map((item, index) => {
                     return (
-                        <div className='music-item' style={{backgroundColor: `${indexCurrent === index ? '#4d007254': ''}`}} key={index}>
+                        <div 
+                            className='music-item' 
+                            style={{backgroundColor: `${indexCurrent === index ? '#4d007254': ''}`}}
+                            onClick={() => handleClickSong(index)}
+                            key={index}
+                        >
                             <p className='music-item__stt'>{item.id}</p>
                             <img src={item.image} alt='' className='music-item__img' />
                             <p className='music-item__song'>{item.name}</p>
@@ -21,6 +31,14 @@ function MusicItem({music, indexCurrent}) {
     )
 }
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        handlePlaySongWhenClick: (index) => {
+            dispatch(playSongWhenClick(index))
+        }
+    }
+}
+
 const mapStateToProps = state => {
     return {
         music: state.musicReducer,
@@ -28,4 +46,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(MusicItem)
+export default connect(mapStateToProps, mapDispatchToProps)(MusicItem)

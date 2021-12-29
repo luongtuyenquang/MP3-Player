@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import './MusicPlaying.scss';
 import { activeSong } from "../../../redux/actions";
 
-function MusicPlaying({music, handleActiveSong}) {
+function MusicPlaying({music, handleActiveSong, indexCurrent}) {
 
     const [isPlaying, setIsPlaying] = useState(true)
     const [isRepeat, setIsRepeat] = useState(false)
@@ -150,6 +150,7 @@ function MusicPlaying({music, handleActiveSong}) {
         // Active Song
         handleActiveSong(indexSong)
 
+
         // Cleanup
         return () => {
             btnNextSong.removeEventListener('click', nextSong)
@@ -170,6 +171,17 @@ function MusicPlaying({music, handleActiveSong}) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, isRepeat, isShuffle])
 
+
+    // Play Song When Click
+    useEffect(() => {
+        // const song = document.querySelector('#song')
+
+        if(typeof indexCurrent === 'number') {
+            setIndexSong(indexCurrent)
+            
+            // song.play()
+        }
+    }, [indexCurrent])
 
     return (
         <div className='music-playing'>
@@ -228,7 +240,8 @@ const mapDispatchToProps = (dispatch, props) => {
 
 const mapStateToProps = state => {
     return {
-        music: state.musicReducer
+        music: state.musicReducer,
+        indexCurrent: state.indexReducer
     }
 }
 
