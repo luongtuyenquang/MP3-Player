@@ -1,7 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import '../SearchBar/SeachBar.scss';
+import { searchSong } from '../../redux/actions';
 
-function SearchBar() {
+function SearchBar({music, handleActiveSong}) {
+
+    const [valueInput, setValueInput] = useState('')
 
     useEffect(() => {
         const searchGroup = document.querySelector('.search__group')
@@ -24,14 +28,32 @@ function SearchBar() {
         }
     },[])
 
+    useEffect(() => {
+        handleActiveSong(valueInput)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [valueInput])
+
     return (
         <section className='search'>
             <div className='search__group'>
                 <i className='bx bx-search'></i>
-                <input type='text' className='search__input' placeholder='Nhập tên bài hát hoặc ca sĩ' />
+                <input 
+                    type='text' 
+                    className='search__input' 
+                    placeholder='Nhập tên bài hát hoặc ca sĩ'
+                    onChange={(e) => setValueInput(e.target.value)}
+                />
             </div>
         </section>
     )
 }
 
-export default SearchBar
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        handleActiveSong: (valueInput) => {
+            dispatch(searchSong(valueInput))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar)

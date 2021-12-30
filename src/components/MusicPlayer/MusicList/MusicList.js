@@ -1,10 +1,18 @@
 import { connect } from "react-redux"
 import MusicItem from "../MusicItem/MusicItem"
 import './MusicList.scss'
+import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
 
-function MusicList({music}) {
 
+function MusicList({music, valueSearch}) {
+    
     const totalSong = music.length
+
+    const searchSong = (song) => {
+        return song.name.toLowerCase().includes(valueSearch.toString().toLowerCase()) 
+        || song.singer.toLowerCase().includes(valueSearch.toString().toLowerCase())
+        // || removeVietNameseTones(song.name.toLowerCase().includes(valueSearch.toString().toLowerCase()))
+    }
 
     return (
         <div className='music-list'>
@@ -13,7 +21,13 @@ function MusicList({music}) {
                 <span>Hiện có: {totalSong} bài hát</span>
             </div>
             <div className='music-list__list'>
-                <MusicItem />
+                {
+                    music.map((item, index) => {
+                        if(searchSong(item)) {
+                            return <MusicItem item={item} index={index} key={index} />
+                        } else return null
+                    })
+                }
             </div>
         </div>
     )
@@ -21,7 +35,8 @@ function MusicList({music}) {
 
 const mapStateToProps = state => {
     return {
-        music: state.musicReducer
+        music: state.musicReducer,
+        valueSearch: state.searchReducer
     }
 }
 

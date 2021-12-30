@@ -178,7 +178,7 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
 
         if(typeof indexCurrent === 'number') {
             setIndexSong(indexCurrent)
-            
+            // setIsPlaying(isPlaying)
             // song.play()
         }
     }, [indexCurrent])
