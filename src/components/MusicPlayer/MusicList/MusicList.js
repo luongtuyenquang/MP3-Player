@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import MusicItem from "../MusicItem/MusicItem"
 import './MusicList.scss'
-import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
+// import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
 
 
 function MusicList({music, valueSearch}) {

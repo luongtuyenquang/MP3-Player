@@ -46,6 +46,7 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
             if(indexSong + 1 === music.length) {
                 setIndexSong(0)
                 setIsPlaying(true)
+                handlePercentSong()
                 song.play()
             } else if(isShuffle) {
                 handleShuffleSong()
@@ -64,6 +65,7 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
             if(indexSong - 1 < 0) {
                 setIndexSong(music.length - 1)
                 setIsPlaying(true)
+                handlePercentSong()
                 song.play()
             } else if(isShuffle) {
                 handleShuffleSong()
@@ -98,8 +100,13 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
         // Song Percent on Range Bar
         function handlePercentSong() {
             // rangeBar.value = song.currentTime
-            const rangePercent = Math.floor(song.currentTime / song.duration * 100)
-            rangeBar.value = rangePercent
+            let rangePercent
+            if(song.currentTime === 0) {
+                rangePercent = 0
+            } else {
+                rangePercent = Math.floor(song.currentTime / song.duration * 100)
+            }
+                rangeBar.value = rangePercent
         }
         song.addEventListener('timeupdate', handlePercentSong)
 
