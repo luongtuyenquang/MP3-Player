@@ -1,7 +1,8 @@
 import { connect } from "react-redux"
 import './MusicItem.scss';
 import { playSongWhenClick } from "../../../redux/actions";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { saveDurationTime } from "../../../redux/actions";
 
 function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSaveDurationTime, durationTime}) {
     
@@ -11,12 +12,13 @@ function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSa
 
     useEffect(() => {
         const songs = document.querySelectorAll('.song')
-        
+
         songs.forEach((song) => {
             song.onloadedmetadata = function() {
-                formatTimer(song.duration)
-            }
+                handleSaveDurationTime(formatTimer(song.duration))
+             }
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     // Song Duration
@@ -40,7 +42,14 @@ function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSa
             <p className='music-item__song'>{item.name}</p>
             <p className='music-item__singer'>{item.singer}</p>
             <audio src={item.mp3} className='song' preload="metadata" />
-            <p className='music-item__timer'>4:30</p>
+            <p className='music-item__timer'>
+                {
+                    durationTime.map((item, indexDuration) => {
+                        if(index === indexDuration) return item
+                        else return null
+                    })
+                }
+            </p>
         </div>
     )
 }
@@ -49,6 +58,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         handlePlaySongWhenClick: (index) => {
             dispatch(playSongWhenClick(index))
+        },
+        handleSaveDurationTime: (time) => {
+            dispatch(saveDurationTime(time))
         }
     }
 }

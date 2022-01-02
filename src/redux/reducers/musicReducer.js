@@ -13,6 +13,9 @@ import yeu_voi_vang_mp3 from '../../assets/mp3/yeu_voi_vang.mp3'
 import ai_la_nguoi_thuong_em_img from '../../assets/images/ai_la_nguoi_thuong_em.jpg'
 import ai_la_nguoi_thuong_em_mp3 from '../../assets/mp3/ai_la_nguoi_thuong_em.mp3'
 
+import tinh_thuong_phu_thue_remix_img from '../../assets/images/tinh_thuong_phu_thue_remix.jpg'
+import tinh_thuong_phu_thue_remix_mp3 from '../../assets/mp3/tinh_thuong_phu_thue_remix.mp3'
+
 const initialState = [
     {
         id: 1,
@@ -30,10 +33,10 @@ const initialState = [
     },
     {
         id: 3,
-        name: 'Hết Thương Cạn Nhớ',
-        mp3: het_thuong_can_nho_mp3,
-        image: het_thuong_can_nho_img,
-        singer: 'Đức Phúc',
+        name: 'Tình Thương Phu Thuê Remix',
+        mp3: tinh_thuong_phu_thue_remix_mp3,
+        image: tinh_thuong_phu_thue_remix_img,
+        singer: 'Chí Hướng',
     },
     {
         id: 4,
@@ -48,7 +51,14 @@ const initialState = [
         mp3: ai_la_nguoi_thuong_em_mp3,
         image: ai_la_nguoi_thuong_em_img,
         singer: 'Quân A.P',
-    }
+    },
+    {
+        id: 6,
+        name: 'Hết Thương Cạn Nhớ',
+        mp3: het_thuong_can_nho_mp3,
+        image: het_thuong_can_nho_img,
+        singer: 'Đức Phúc',
+    },
 ]
 const musicReducer = (state = initialState, action) => {
     switch(action){

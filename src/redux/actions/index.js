@@ -1,4 +1,4 @@
-import { ACTIVE_SONG, PLAY_SONG_WHEN_CLICK, SEARCH_SONG } from "../constants"
+import { ACTIVE_SONG, PLAY_SONG_WHEN_CLICK, SEARCH_SONG, SAVE_DURATION_TIME } from "../constants"
 
 export const activeSong = index => {
     return {
@@ -18,5 +18,12 @@ export const searchSong = value => {
     return {
         type: SEARCH_SONG,
         value
+    }
+}
+
+export const saveDurationTime = time => {
+    return {
+        type: SAVE_DURATION_TIME,
+        time
     }
 }

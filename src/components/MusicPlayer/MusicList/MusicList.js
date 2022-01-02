@@ -11,7 +11,7 @@ function MusicList({music, valueSearch}) {
     const searchSong = (song) => {
         return song.name.toLowerCase().includes(valueSearch.toString().toLowerCase()) 
         || song.singer.toLowerCase().includes(valueSearch.toString().toLowerCase())
-        // || removeVietNameseTones(song.name.toLowerCase().includes(valueSearch.toString().toLowerCase()))
+        // || removeVietNameseTones(song.name.toLowerCase()).includes(valueSearch.toString().toLowerCase())
     }
 
     return (
