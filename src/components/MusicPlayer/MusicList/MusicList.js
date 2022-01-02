@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import MusicItem from "../MusicItem/MusicItem"
 import './MusicList.scss'
-// import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
+import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
 
 
 function MusicList({music, valueSearch}) {
@@ -11,7 +11,8 @@ function MusicList({music, valueSearch}) {
     const searchSong = (song) => {
         return song.name.toLowerCase().includes(valueSearch.toString().toLowerCase()) 
         || song.singer.toLowerCase().includes(valueSearch.toString().toLowerCase())
-        // || removeVietNameseTones(song.name.toLowerCase()).includes(valueSearch.toString().toLowerCase())
+        || removeVietNameseTones(song.name.toLowerCase()).includes(valueSearch.toString().toLowerCase())
+        || removeVietNameseTones(song.singer.toLowerCase()).includes(valueSearch.toString().toLowerCase())
     }
 
     return (
