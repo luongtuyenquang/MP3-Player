@@ -3,10 +3,13 @@
     display: grid;
     grid-template-columns: 1fr 1.8fr;
     grid-column-gap: 3rem;
+    align-items: center;
 
     &__heading {
         font-size: 1.7rem;
         font-weight: 500;
         padding-bottom: 3rem;
+        display: flex;
+        align-items: center;
     }
 }

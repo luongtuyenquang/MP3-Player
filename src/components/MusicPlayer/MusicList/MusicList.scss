@@ -1,6 +1,18 @@
 @import '../../../scss/variable';
 
 .music-list {
+    &__sort {
+        cursor: pointer;
+        margin-left: 2rem;
+
+        i {
+            font-size: 2rem;
+            padding: 0.2rem;
+            border: 2px solid #0000006b;
+            border-radius: 8px;
+        }
+    }
+
     &__list {
         height: $height-form-music;
         overflow-x: auto;

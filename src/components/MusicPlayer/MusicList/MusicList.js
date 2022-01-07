@@ -18,7 +18,11 @@ function MusicList({music, valueSearch}) {
     return (
         <div className='music-list'>
             <div className='music-item__heading'>
-                <p className='music__heading'>Danh sách bài hát</p>
+                <p className='music__heading'>Danh sách bài hát
+                    <span className='music-list__sort'>
+                        <i className='bx bx-sort-alt-2'></i>
+                    </span>
+                </p>
                 <span>Hiện có: {totalSong} bài hát</span>
             </div>
             <div className='music-list__list'>
