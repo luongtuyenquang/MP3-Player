@@ -16,9 +16,16 @@ function MusicList({music, valueSearch}) {
         || removeVietNameseTones(song.name.toLowerCase()).includes(valueSearch.toString().toLowerCase())
         || removeVietNameseTones(song.singer.toLowerCase()).includes(valueSearch.toString().toLowerCase())
     }
-
+    
     const handleIsSort = () => {
         setIsSort(!isSort)
+
+        if(isSort) {
+            music.sort((a, b) => (a.name < b.name) ? 1 : -1)
+     
+         } else {
+            music.sort((a, b) => (a.name > b.name) ? 1 : -1)
+         }
     }
 
     return (
