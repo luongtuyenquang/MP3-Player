@@ -58,16 +58,12 @@
     }        
 }
 
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 1023px){
     .music-item {
         &__heading {
             span {
                 padding-top: 1rem;
             }
-        }
-
-        &__img {
-            width: 50px;
         }
 
         &__song {
@@ -77,6 +73,14 @@
 
         &__singer {
             width: 25%;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .music-item {
+        &__img {
+            width: 50px;
         }
     }
 }
