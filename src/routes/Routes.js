@@ -7,15 +7,6 @@ function Routes() {
             <Route exact path='/' >
                 <HomePage />
             </Route>
-
-            {/* <Route path='/san-pham/:slug'>
-                <Product />
-            </Route> */}
-
-            {/* <Route path="*">
-                <NotFound />
-            </Route> */}
-            
         </Switch>
     )
 }

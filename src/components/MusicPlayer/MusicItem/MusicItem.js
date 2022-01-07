@@ -33,7 +33,7 @@ function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSa
     return (
         <div 
             className='music-item' 
-            style={{backgroundColor: `${indexCurrent === index ? '#4d007254': ''}`}}
+            style={{backgroundColor: `${indexCurrent === index ? '#cbbaac': ''}`}}
             onClick={() => handleClickSong(index)}
             key={index}
         >

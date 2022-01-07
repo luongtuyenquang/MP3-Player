@@ -1,7 +1,10 @@
 @import '../scss/variable';
 
 .home {
-    background: linear-gradient(to bottom, #e1dfdd, #d5cccf);
-    flex: 1;
+    background: linear-gradient(to bottom, #ffeede, #f2e5f7);
     padding: 2rem;
+    width: 120rem;
+    margin: auto;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }

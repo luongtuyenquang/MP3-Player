@@ -181,12 +181,9 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
 
     // Play Song When Click
     useEffect(() => {
-        // const song = document.querySelector('#song')
-
         if(typeof indexCurrent === 'number') {
             setIndexSong(indexCurrent)
-            // setIsPlaying(isPlaying)
-            // song.play()
+            setIsPlaying(true)
         }
     }, [indexCurrent])
 
