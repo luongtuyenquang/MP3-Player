@@ -37,3 +37,21 @@
         }
     }
 }
+
+@media only screen and (max-width: 767px){
+    .music-list {
+        &__sort {
+            padding-top: unset !important;
+        }
+
+        &__list {
+            padding-right: 0;
+            overflow-x: unset;
+            height: unset;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}

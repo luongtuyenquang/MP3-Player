@@ -10,3 +10,9 @@
     display: flex;
     background: linear-gradient(to right, #b99b9b, #603c3c87);
 }
+
+@media only screen and (max-width: 767px){
+    .App {
+        position: unset;
+    }
+}

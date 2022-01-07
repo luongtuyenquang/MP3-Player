@@ -28,3 +28,17 @@
         font-family: 'Poppins', sans-serif;
     }
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1023px){
+
+}
+
+@media only screen and (max-width: 767px){
+    .search {
+        padding-top: 2rem;
+        
+        &__group {
+            width: 100%;
+        }
+    }
+}

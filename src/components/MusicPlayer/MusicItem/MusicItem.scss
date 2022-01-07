@@ -57,3 +57,26 @@
         flex: 1;
     }        
 }
+
+@media only screen and (max-width: 767px){
+    .music-item {
+        &__heading {
+            span {
+                padding-top: 1rem;
+            }
+        }
+
+        &__img {
+            width: 50px;
+        }
+
+        &__song {
+            padding-left: 1.5rem;
+            padding-right: 1rem;
+        }
+
+        &__singer {
+            width: 25%;
+        }
+    }
+}
