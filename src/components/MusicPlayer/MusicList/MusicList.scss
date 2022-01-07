@@ -3,13 +3,17 @@
 .music-list {
     &__sort {
         cursor: pointer;
-        margin-left: 2rem;
+        margin-left: 1.5rem;
 
         i {
             font-size: 2rem;
             padding: 0.2rem;
             border: 2px solid #0000006b;
             border-radius: 8px;
+
+            &:hover {
+                color: black;
+            }
         }
     }
 

@@ -2,10 +2,12 @@ import { connect } from "react-redux"
 import MusicItem from "../MusicItem/MusicItem"
 import './MusicList.scss'
 import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
+import { useState } from "react"
 
 
 function MusicList({music, valueSearch}) {
     
+    const [isSort, setIsSort] = useState(true)
     const totalSong = music.length
 
     const searchSong = (song) => {
@@ -15,12 +17,20 @@ function MusicList({music, valueSearch}) {
         || removeVietNameseTones(song.singer.toLowerCase()).includes(valueSearch.toString().toLowerCase())
     }
 
+    const handleIsSort = () => {
+        setIsSort(!isSort)
+    }
+
     return (
         <div className='music-list'>
             <div className='music-item__heading'>
                 <p className='music__heading'>Danh sách bài hát
                     <span className='music-list__sort'>
-                        <i className='bx bx-sort-alt-2'></i>
+                        <i 
+                            className={`bx bx-${isSort ? 'down' : 'up'}-arrow-alt`} 
+                            onClick={handleIsSort}
+                        >
+                        </i>
                     </span>
                 </p>
                 <span>Hiện có: {totalSong} bài hát</span>
