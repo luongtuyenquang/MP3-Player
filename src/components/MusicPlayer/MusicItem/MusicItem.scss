@@ -58,6 +58,26 @@
     }        
 }
 
+@media only screen and (min-width: 1300px){
+    .music-item {
+        &__heading {
+            span {
+                padding-top: 1rem;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1299px){
+    .music-item {
+        &__heading {
+            span {
+                padding-top: 1rem;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 1023px){
     .music-item {
         &__heading {

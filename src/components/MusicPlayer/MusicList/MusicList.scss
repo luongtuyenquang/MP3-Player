@@ -38,6 +38,22 @@
     }
 }
 
+@media only screen and (min-width: 1300px){
+    .music-list {
+        &__sort {
+            padding-top: unset !important;
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1299px){
+    .music-list {
+        &__sort {
+            padding-top: unset !important;
+        }
+    }
+}
+
 @media only screen and (max-width: 1023px){
     .music-list {
         &__sort {

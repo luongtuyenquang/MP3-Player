@@ -2,14 +2,23 @@
 
 .home {
     background: linear-gradient(to bottom, #ffeede, #f2e5f7);
-    padding: 2rem;
-    width: 120rem;
+    padding: 2rem 5rem;
     margin: auto;
-    padding-left: 5rem;
-    padding-right: 5rem;
     box-shadow: 0px 2px 5px 2px #0000001c;
 }
 
+@media only screen and (min-width: 1300px){
+    .home {
+        width: 120rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1299px){
+    .home {
+        width: 100rem;
+        padding: 2rem 5rem 4rem;
+    }
+}
 
 @media only screen and (min-width: 768px) and (max-width: 1023px){
     .home {
