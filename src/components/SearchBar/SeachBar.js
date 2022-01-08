@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import '../SearchBar/SeachBar.scss';
 import { searchSong } from '../../redux/actions';
@@ -6,6 +6,7 @@ import { searchSong } from '../../redux/actions';
 function SearchBar({music, handleActiveSong}) {
 
     const [valueInput, setValueInput] = useState('')
+    const inputRef = useRef() 
 
     useEffect(() => {
         const searchGroup = document.querySelector('.search__group')
@@ -33,15 +34,20 @@ function SearchBar({music, handleActiveSong}) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valueInput])
 
+    const handleFocusInput = () => {
+        inputRef.current.focus()
+    }
+
     return (
         <section className='search'>
             <div className='search__group'>
-                <i className='bx bx-search'></i>
+                <i onClick={handleFocusInput} className='bx bx-search'></i>
                 <input 
                     type='text' 
                     className='search__input' 
                     placeholder='Nhập tên bài hát hoặc ca sĩ'
                     onChange={(e) => setValueInput(e.target.value)}
+                    ref={inputRef}
                 />
             </div>
         </section>
