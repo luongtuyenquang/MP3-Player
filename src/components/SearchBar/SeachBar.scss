@@ -27,6 +27,17 @@
         height: 4rem;
         font-family: 'Poppins', sans-serif;
     }
+
+    &-empty {
+        &__description {
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            padding-top: 2rem;
+        }
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px){
