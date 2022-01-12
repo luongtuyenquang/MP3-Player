@@ -97,6 +97,10 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
         setIsRepeat(!isRepeat)
     }
 
+    function handleTrueFalseShuffle() {
+        setIsShuffle(!isShuffle)
+    }
+    
     // Shuffle Song
     function handleShuffleSong() {
         let newIndexSong
@@ -123,9 +127,6 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
         return `${minutes}:${formatSecond}`
     }
 
-    function handleTrueFalseShuffle() {
-        setIsShuffle(!isShuffle)
-    }
 
     useEffect(() => {
         const songCurrent = song.current
@@ -156,7 +157,7 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
             clearInterval(remainingSong)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPlaying, isRepeat, isShuffle])
+    }, [isPlaying, isRepeat, isShuffle, indexSong])
 
 
     // Play Song When Click

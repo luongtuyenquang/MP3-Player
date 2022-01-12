@@ -37,7 +37,7 @@ function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSa
             onClick={() => handleClickSong(index)}
             key={index}
         >
-            <p className='music-item__stt'>{item.id}</p>
+            <p className='music-item__stt'>{index + 1}</p>
             <img src={item.image} alt='' className='music-item__img' />
             <p className='music-item__song'>{item.name}</p>
             <p className='music-item__singer'>{item.singer}</p>
