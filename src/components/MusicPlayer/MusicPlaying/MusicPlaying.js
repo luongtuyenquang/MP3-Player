@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './MusicPlaying.scss';
 import { activeSong } from "../../../redux/actions";
 
@@ -11,169 +11,149 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
     const [indexSong, setIndexSong] = useState(0)
     const [durationTimer, setDurationTimer] = useState(null)
     const [remainingTimer, setRemainingTimer] = useState(null)
+    const song = useRef(null)
+    const rangeBar = useRef(null)
 
+    // Play Song
+    function playSong() {
+        song.current.play()
+    }
+
+    // Pause Song
+    function pauseSong() {
+        song.current.pause()
+    }
+
+    // Play, Pause Song
     const handlePlayPause = () => {
         setIsPlaying(!isPlaying)
+        if(isPlaying) {
+            playSong()
+        } else {
+            pauseSong()
+        }
+    }
+
+    // Next Song
+    function nextSong() {
+        if(indexSong + 1 === music.length) {
+            setIndexSong(0)
+            setIsPlaying(true)
+            handlePercentSong()
+            playSong()
+        } else if(isShuffle) {
+            handleShuffleSong()
+            setIsPlaying(true)
+        } else {
+            setIndexSong(indexSong + 1)
+            setIsPlaying(true)
+            playSong()
+        }
+    }
+
+     // Previous Song
+     function prevSong() {
+        if(indexSong - 1 < 0) {
+            setIndexSong(music.length - 1)
+            setIsPlaying(true)
+            handlePercentSong()
+            playSong()
+        } else if(isShuffle) {
+            handleShuffleSong()
+            setIsPlaying(true)
+        } else {
+            setIndexSong(indexSong - 1)
+            setIsPlaying(true)
+            playSong()
+        }
+    }
+
+    // Song Percent on Range Bar
+    function handlePercentSong() {
+        // rangeBar.value = song.currentTime
+        let rangePercent
+        if(song.current.currentTime === 0) {
+            rangePercent = 0
+        } else {
+            rangePercent = Math.floor(song.current.currentTime / song.current.duration * 100)
+        }
+            rangeBar.current.value = rangePercent
+    }
+
+      // Ended Song
+    function handleEndedSong() {
+        if(isRepeat) {
+            playSong()
+        } else if(isShuffle) {
+            handleShuffleSong()
+        } else {
+            nextSong()
+            setIsPlaying(false)
+        }
+    }
+
+    // Repeat Song
+    function handleRepeatSong() {
+        setIsRepeat(!isRepeat)
+    }
+
+    // Shuffle Song
+    function handleShuffleSong() {
+        let newIndexSong
+        do {
+            newIndexSong = Math.floor(Math.random() * music.length)
+        } while (newIndexSong === indexSong)
+        setIndexSong(newIndexSong)
+        playSong()
+    }
+
+    // Rewind
+    function handleRewind(e) {
+        let percentSong = 0;
+        percentSong = e.target.value;
+        const seekTime = percentSong / 100 * song.current.duration;
+        song.current.currentTime = seekTime;
+    }
+
+    // Song Duration
+    function formatTimer(timer) {
+        const minutes = Math.floor(timer / 60)
+        const seconds = Math.floor(timer - minutes * 60)
+        const formatSecond = `0${seconds}`.slice(-2)
+        return `${minutes}:${formatSecond}`
+    }
+
+    function handleTrueFalseShuffle() {
+        setIsShuffle(!isShuffle)
     }
 
     useEffect(() => {
-        const song = document.querySelector('#song')
-        const rangeBar = document.querySelector('#range')
-        const play = document.querySelector('.bx-play')
-        const pause = document.querySelector('.bx-pause')
-        const btnNextSong = document.querySelector('.bx-fast-forward')
-        const btnPrevSong = document.querySelector('.bx-rewind')
-        const btnRepeatSong = document.querySelector('.bx-repeat')
-        const btnShuffleSong = document.querySelector('.bx-shuffle')
-
-        // Play and Pause Song
-        function playSong() {
-            song.play()
-        }
-
-        function pauseSong() {
-            song.pause()
-        }
-
-        if(isPlaying) {
-            play.addEventListener('click', playSong)
-        } else {
-            pause.addEventListener('click', pauseSong)
-        }
-
-        // Next Song
-        function nextSong() {
-            if(indexSong + 1 === music.length) {
-                setIndexSong(0)
-                setIsPlaying(true)
-                handlePercentSong()
-                song.play()
-            } else if(isShuffle) {
-                handleShuffleSong()
-                setIsPlaying(true)
-            } else {
-                setIndexSong(indexSong + 1)
-                setIsPlaying(true)
-                song.play()
-            }
-        }
-
-        btnNextSong.addEventListener('click', nextSong)
-
-        // Previous Song
-        function prevSong() {
-            if(indexSong - 1 < 0) {
-                setIndexSong(music.length - 1)
-                setIsPlaying(true)
-                handlePercentSong()
-                song.play()
-            } else if(isShuffle) {
-                handleShuffleSong()
-                setIsPlaying(true)
-            } else {
-                setIndexSong(indexSong - 1)
-                setIsPlaying(true)
-                song.play()
-            }
-            
-        }
-
-        btnPrevSong.addEventListener('click', prevSong)
+        const songCurrent = song.current
+        const rangeBarCurrent = rangeBar.current
 
         // Song Duration
-        function formatTimer(timer) {
-            const minutes = Math.floor(timer / 60)
-            const seconds = Math.floor(timer - minutes * 60)
-            const formatSecond = `0${seconds}`.slice(-2)
-            return `${minutes}:${formatSecond}`
-        }
-        
-        song.onloadedmetadata = function() {
-            setDurationTimer(formatTimer(song.duration))
+        song.current.onloadedmetadata = function() {
+            setDurationTimer(formatTimer(song.current.duration))
         };
 
         // Song Remaining Time
         const remainingSong = setInterval(() => {
-            setRemainingTimer(formatTimer(song.currentTime))
+            setRemainingTimer(formatTimer(song.current.currentTime))
         }, 500)
-
-        // Song Percent on Range Bar
-        function handlePercentSong() {
-            // rangeBar.value = song.currentTime
-            let rangePercent
-            if(song.currentTime === 0) {
-                rangePercent = 0
-            } else {
-                rangePercent = Math.floor(song.currentTime / song.duration * 100)
-            }
-                rangeBar.value = rangePercent
-        }
-        song.addEventListener('timeupdate', handlePercentSong)
-
-        // Rewind
-        function handleRewind(e) {
-            let percentSong = 0;
-            percentSong = e.target.value;
-            const seekTime = percentSong / 100 * song.duration;
-            song.currentTime = seekTime;
-        }
-        rangeBar.addEventListener('input', handleRewind)
-
-          // Ended Song
-        function handleEndedSong() {
-            if(isRepeat) {
-                song.play()
-            } else if(isShuffle) {
-                handleShuffleSong()
-            } else {
-                nextSong()
-                setIsPlaying(false)
-            }
-            
-        }
-        song.addEventListener('ended', handleEndedSong)
-
-        // Repeat Song
-        function handleRepeatSong() {
-            setIsRepeat(!isRepeat)
-        }
-        btnRepeatSong.addEventListener('click', handleRepeatSong)
-        
-        // Shuffle Song
-        function handleShuffleSong() {
-            let newIndexSong
-            do {
-                newIndexSong = Math.floor(Math.random() * music.length)
-            } while (newIndexSong === indexSong)
-            setIndexSong(newIndexSong)
-            song.play()
-        }
-
-        function handleTrueFalseShuffle() {
-            setIsShuffle(!isShuffle)
-        }
-        btnShuffleSong.addEventListener('click', handleTrueFalseShuffle)
 
         // Active Song
         handleActiveSong(indexSong)
 
+        song.current.addEventListener('timeupdate', handlePercentSong)
+        rangeBar.current.addEventListener('input', handleRewind)
+        song.current.addEventListener('ended', handleEndedSong)
 
         // Cleanup
         return () => {
-            btnNextSong.removeEventListener('click', nextSong)
-            btnPrevSong.removeEventListener('click', prevSong)
-            song.removeEventListener('ended', handleEndedSong)
-            rangeBar.removeEventListener('input', handleRewind)
-            song.removeEventListener('timeupdate', handlePercentSong)
-            btnRepeatSong.removeEventListener('click', handleRepeatSong)
-            btnShuffleSong.removeEventListener('click', handleTrueFalseShuffle)
+            songCurrent.removeEventListener('ended', handleEndedSong)
+            rangeBarCurrent.removeEventListener('input', handleRewind)
+            songCurrent.removeEventListener('timeupdate', handlePercentSong)
             clearInterval(remainingSong)
-
-            if(isPlaying) {
-                play.removeEventListener('click', playSong)
-            } else {
-                pause.removeEventListener('click', pauseSong)
-            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, isRepeat, isShuffle])
@@ -187,6 +167,7 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
         }
     }, [indexCurrent])
 
+
     return (
         <div className='music-playing'>
             <p className='music__heading'>Bài hát hiện tại</p>
@@ -195,8 +176,8 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
                 <p className='music-playing__song'>{music[indexSong].name}</p>
                 <p className='music-playing__singer'>{music[indexSong].singer}</p>
                 <div className='music-playing__range'>
-                    <input type='range' id='range' defaultValue='0' step='1' min='0' max='100' />
-                    <audio src={music[indexSong].mp3} id='song' preload="metadata" />
+                    <input type='range' ref={rangeBar} id='range' defaultValue='0' step='1' min='0' max='100' />
+                    <audio src={music[indexSong].mp3} ref={song} id='song' preload="metadata" />
                     <div className='music-playing__timer'>
                         <span>{durationTimer}</span>
                         <span>{remainingTimer}</span>
@@ -206,11 +187,12 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
                     <i 
                         className='bx bx-shuffle music-playing__control__icon'
                         style={{color: `${isShuffle ? '#f8495a': ''}`}}
+                        onClick={handleTrueFalseShuffle}
                     >
                     </i>
                     <i 
                         className='bx bx-rewind music-playing__control__icon' 
-                        onClick={handlePlayPause}
+                        onClick={prevSong}
                     >
                     </i>
                     <i 
@@ -220,12 +202,13 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
                     </i>
                     <i 
                         className='bx bx-fast-forward music-playing__control__icon'
-                        onClick={handlePlayPause}
+                        onClick={nextSong}
                     >
                     </i>
                     <i 
                         className='bx bx-repeat music-playing__control__icon'
                         style={{color: `${isRepeat ? '#f8495a': ''}`}}
+                        onClick={handleRepeatSong}
                     >
                     </i>
                 </div>
