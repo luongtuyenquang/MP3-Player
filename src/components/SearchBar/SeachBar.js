@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import '../SearchBar/SeachBar.scss';
 import { searchSong } from '../../redux/actions';
 
-function SearchBar({music, handleActiveSong}) {
+function SearchBar({music, handleSearchSong}) {
 
     const [valueInput, setValueInput] = useState('')
     const inputRef = useRef() 
@@ -30,7 +30,7 @@ function SearchBar({music, handleActiveSong}) {
     },[])
 
     useEffect(() => {
-        handleActiveSong(valueInput)
+        handleSearchSong(valueInput.trim())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valueInput])
 
@@ -62,7 +62,7 @@ function SearchBar({music, handleActiveSong}) {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        handleActiveSong: (valueInput) => {
+        handleSearchSong: (valueInput) => {
             dispatch(searchSong(valueInput))
         }
     }
