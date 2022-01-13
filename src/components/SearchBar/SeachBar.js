@@ -38,11 +38,17 @@ function SearchBar({music, handleActiveSong}) {
         inputRef.current.focus()
     }
 
+    useEffect(() => {
+        inputRef.current.addEventListener('keyup', (e) => {
+            e.stopPropagation()
+        })
+    }, [])
+
     return (
         <section className='search'>
             <div className='search__group'>
                 <i onClick={handleFocusInput} className='bx bx-search'></i>
-                <input 
+                <input
                     type='text' 
                     className='search__input' 
                     placeholder='Nhập tên bài hát hoặc ca sĩ'

@@ -149,11 +149,19 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
         rangeBar.current.addEventListener('input', handleRewind)
         song.current.addEventListener('ended', handleEndedSong)
 
+        function keySpace(e) {
+            if(e.which === 32) {
+                handlePlayPause()
+            }
+        }
+        document.addEventListener('keyup', keySpace)
+
         // Cleanup
         return () => {
             songCurrent.removeEventListener('ended', handleEndedSong)
             rangeBarCurrent.removeEventListener('input', handleRewind)
             songCurrent.removeEventListener('timeupdate', handlePercentSong)
+            document.removeEventListener('keyup', keySpace)
             clearInterval(remainingSong)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -167,6 +175,8 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
             setIsPlaying(true)
         }
     }, [indexCurrent])
+
+    
 
 
     return (
