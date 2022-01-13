@@ -86,6 +86,7 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
             playSong()
         } else if(isShuffle) {
             handleShuffleSong()
+            setIsPlaying(false)
         } else {
             nextSong()
             setIsPlaying(false)
@@ -172,11 +173,14 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
     useEffect(() => {
         if(typeof indexCurrent === 'number') {
             setIndexSong(indexCurrent)
-            setIsPlaying(true)
+            if(isShuffle) {
+                setIsPlaying(isPlaying)
+            } else {
+                setIsPlaying(true)
+            }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [indexCurrent])
-
-    
 
 
     return (
