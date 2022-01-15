@@ -118,3 +118,20 @@
         margin-bottom: 2rem;
     }
 }
+
+@media only screen and (min-width: 320px) and (max-width: 350px){
+    .music-playing {
+        &__control {
+            width: calc(#{$width-control-mobile} - 3rem);
+
+            &__icon {
+                margin: 0;
+            }
+        }
+        &__range {
+            input {
+                width: calc(#{$width-control-mobile} - 3rem);
+            }
+        }
+    }
+}

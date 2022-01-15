@@ -28,3 +28,11 @@
         }
     }
 }
+
+@media only screen and (min-width: 320px) and (max-width: 350px){
+    .music {
+        &__heading {
+            font-size: 1.5rem;
+        }
+    }
+}
