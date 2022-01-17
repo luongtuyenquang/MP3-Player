@@ -100,6 +100,22 @@
     }
 }
 
+@media only screen and (min-width: 1900px){
+    .music-playing {
+        &__group {
+            height: $height-music-playing-large;
+            justify-content: center;
+        }
+
+        &__img {
+            width: 150px;
+        }
+
+        &__song {
+            padding: 3rem 0 1rem;
+        }
+    }
+}
 
 @media only screen and (max-width: 1023px){
     .music-playing {
@@ -109,6 +125,12 @@
 
         &__control {
             padding-top: 3rem;
+
+            &__icon {
+                &:hover {
+                    background-color: unset;
+                }
+            }
         }
     }
 }

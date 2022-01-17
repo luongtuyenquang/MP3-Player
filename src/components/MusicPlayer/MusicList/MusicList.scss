@@ -38,6 +38,14 @@
     }
 }
 
+@media only screen and (min-width: 1900px){
+    .music-list {
+        &__list {
+            height: $height-music-playing-large;
+        }
+    }
+}
+
 @media only screen and (min-width: 1300px){
     .music-list {
         &__sort {
