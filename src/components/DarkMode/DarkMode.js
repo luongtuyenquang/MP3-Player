@@ -2,7 +2,7 @@ import './DarkMode.scss';
 
 function DarkMode() {
     return (
-        <div className='theme'>
+        <div className='theme-dark'>
             <input type='checkbox' />
         </div>
     )

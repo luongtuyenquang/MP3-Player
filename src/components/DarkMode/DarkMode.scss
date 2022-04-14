@@ -1,4 +1,4 @@
-.theme {
+.theme-dark {
     & input[type='checkbox'] {
         width: 5rem;
         height: 2.6rem;
@@ -28,5 +28,17 @@
     }
     & input:checked[type='checkbox']::before {
         left: calc(50% + 2px);
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .theme-dark {
+        & input[type='checkbox'] {
+            height: 2.4rem;
+        }
+        & input[type='checkbox']::before {
+            width: 1.9rem;
+            height: 1.9rem;
+        }
     }
 }
