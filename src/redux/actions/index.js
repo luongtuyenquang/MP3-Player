@@ -1,4 +1,4 @@
-import { ACTIVE_SONG, PLAY_SONG_WHEN_CLICK, SEARCH_SONG, SAVE_DURATION_TIME } from "../constants"
+import { ACTIVE_SONG, PLAY_SONG_WHEN_CLICK, SEARCH_SONG, SAVE_DURATION_TIME, CHECKED_DARKMODE } from "../constants"
 
 export const activeSong = index => {
     return {
@@ -25,5 +25,12 @@ export const saveDurationTime = time => {
     return {
         type: SAVE_DURATION_TIME,
         time
+    }
+}
+
+export const checkedDarkMode = checked => {
+    return {
+        type: CHECKED_DARKMODE,
+        checked
     }
 }

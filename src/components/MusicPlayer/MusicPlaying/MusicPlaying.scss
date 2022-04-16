@@ -48,7 +48,10 @@
                 border-radius: 50%;
                 background: #34e03c;
                 margin-top: 0px;
-              }
+            }
+            &.dark-item__color::-webkit-slider-thumb {
+                background-color: #D6014F;
+            }
         }
     }
 
@@ -80,7 +83,9 @@
                 background-color: #d9d5d5e6;
                 border-radius: 50%;
             }
-
+            &.dark-item__text:hover {
+                background-color: #d9d5d526;
+            }
             &:first-child, &:last-child {
                 font-size: 2rem;
                 padding: 0.5rem;
@@ -98,6 +103,10 @@
             }
         }
     }
+}
+
+.music-playing__control__icon.dark-item__text.music-playing__control__icon--color {
+    border: 3px solid #d6014f;
 }
 
 @media only screen and (min-width: 1900px){

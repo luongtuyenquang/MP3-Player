@@ -10,9 +10,13 @@
             padding: 0.2rem;
             border: 2px solid #0000006b;
             border-radius: 8px;
-
+            
             &:hover {
                 color: black;
+            }
+
+            &.dark-item__text {
+                border-color: #d6014fd9;
             }
         }
     }
@@ -34,6 +38,10 @@
         &::-webkit-scrollbar-thumb {
             border-radius: 5px;
             background-color: #4d0072;
+        }
+
+        &.dark-item__color::-webkit-scrollbar-thumb {
+            background-color: #D6014F;
         }
     }
 }

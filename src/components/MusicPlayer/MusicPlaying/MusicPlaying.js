@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import './MusicPlaying.scss';
 import { activeSong } from "../../../redux/actions";
 
-function MusicPlaying({music, handleActiveSong, indexCurrent}) {
+function MusicPlaying({music, handleActiveSong, indexCurrent, themeDark}) {
 
     const [isPlaying, setIsPlaying] = useState(true)
     const [isRepeat, setIsRepeat] = useState(false)
@@ -185,43 +185,43 @@ function MusicPlaying({music, handleActiveSong, indexCurrent}) {
 
     return (
         <div className='music-playing'>
-            <p className='music__heading'>Bài hát hiện tại</p>
-            <div className='music-playing__group'>
+            <p className={`music__heading ${themeDark === true ? 'dark-item__text' : ''}`}>Bài hát hiện tại</p>
+            <div className={`music-playing__group ${themeDark === true ? 'dark-item' : ''}`}>
                 <img src={music[indexSong].image} alt='' className='music-playing__img' />
-                <p className='music-playing__song'>{music[indexSong].name}</p>
-                <p className='music-playing__singer'>{music[indexSong].singer}</p>
+                <p className={`music-playing__song ${themeDark === true ? 'dark-item__text' : ''}`}>{music[indexSong].name}</p>
+                <p className={`music-playing__singer ${themeDark === true ? 'dark-item__text' : ''}`}>{music[indexSong].singer}</p>
                 <div className='music-playing__range'>
-                    <input type='range' ref={rangeBar} id='range' defaultValue='0' step='1' min='0' max='100' />
+                    <input type='range' ref={rangeBar} className={`${themeDark === true ? 'dark-item__color' : ''}`} id='range' defaultValue='0' step='1' min='0' max='100' />
                     <audio src={music[indexSong].mp3} ref={song} id='song' preload="metadata" />
-                    <div className='music-playing__timer'>
+                    <div className={`music-playing__timer ${themeDark === true ? 'dark-item__text' : ''}`}>
                         <span>{durationTimer}</span>
                         <span>{remainingTimer}</span>
                     </div>
                 </div>
                 <div className='music-playing__control'>
                     <i 
-                        className='bx bx-shuffle music-playing__control__icon'
+                        className={`bx bx-shuffle music-playing__control__icon ${themeDark === true ? 'dark-item__text' : ''}`}
                         style={{color: `${isShuffle ? '#f8495a': ''}`}}
                         onClick={handleTrueFalseShuffle}
                     >
                     </i>
                     <i 
-                        className='bx bx-rewind music-playing__control__icon' 
+                        className={`bx bx-rewind music-playing__control__icon ${themeDark === true ? 'dark-item__text' : ''}`} 
                         onClick={prevSong}
                     >
                     </i>
                     <i 
-                        className={`bx bx-${isPlaying ? 'play' : 'pause'} music-playing__control__icon music-playing__control__icon--color`} 
+                        className={`bx bx-${isPlaying ? 'play' : 'pause'} music-playing__control__icon ${themeDark === true ? 'dark-item__text' : ''} music-playing__control__icon--color`} 
                         onClick={handlePlayPause}
                     >
                     </i>
                     <i 
-                        className='bx bx-fast-forward music-playing__control__icon'
+                        className={`bx bx-fast-forward music-playing__control__icon ${themeDark === true ? 'dark-item__text' : ''}`}
                         onClick={nextSong}
                     >
                     </i>
                     <i 
-                        className='bx bx-repeat music-playing__control__icon'
+                        className={`bx bx-repeat music-playing__control__icon ${themeDark === true ? 'dark-item__text' : ''}`}
                         style={{color: `${isRepeat ? '#f8495a': ''}`}}
                         onClick={handleRepeatSong}
                     >
@@ -243,7 +243,8 @@ const mapDispatchToProps = (dispatch, props) => {
 const mapStateToProps = state => {
     return {
         music: state.musicReducer,
-        indexCurrent: state.indexReducer
+        indexCurrent: state.indexReducer,
+        themeDark: state.darkModeReducer,
     }
 }
 

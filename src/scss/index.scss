@@ -1,3 +1,4 @@
+@import '../components/DarkMode/DarkMode.scss';
 @import './base';
 @import './variable';
 
@@ -8,7 +9,11 @@
     right: 0;
     bottom: 0;
     display: flex;
-    background: linear-gradient(to right, #b99b9b, #603c3c87);
+    background: linear-gradient(to right, #a58787, #a75e5e87);
+}
+ 
+.dark-item__text, .music-item__heading span.dark-item__text {
+    color: #E6E6E6;
 }
 
 @media only screen and (max-width: 1023px){

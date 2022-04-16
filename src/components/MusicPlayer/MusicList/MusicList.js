@@ -5,7 +5,7 @@ import removeVietNameseTones from '../../../utils/removeVietNameseTones.js'
 import { useState } from "react"
 
 
-function MusicList({music, valueSearch}) {
+function MusicList({music, valueSearch, themeDark}) {
     
     const [isSort, setIsSort] = useState(true)
     const totalSong = music.length
@@ -31,18 +31,18 @@ function MusicList({music, valueSearch}) {
     return (
         <div className='music-list'>
             <div className='music-item__heading'>
-                <p className='music__heading'>Danh sách bài hát
+                <p className={`music__heading ${themeDark === true ? 'dark-item__text' : ''}`}>Danh sách bài hát
                     <span className='music-list__sort'>
                         <i 
-                            className={`bx bx-${isSort ? 'down' : 'up'}-arrow-alt`} 
+                            className={`bx bx-${isSort ? 'down' : 'up'}-arrow-alt ${themeDark === true ? 'dark-item__text' : ''}`} 
                             onClick={handleIsSort}
                         >
                         </i>
                     </span>
                 </p>
-                <span>Hiện có: {totalSong} bài hát</span>
+                <span className={`${themeDark === true ? 'dark-item__text' : ''}`}>Hiện có: {totalSong} bài hát</span>
             </div>
-            <div className='music-list__list'>
+            <div className={`music-list__list ${themeDark === true ? 'dark-item__color' : ''}`}>
                 {
                     music.map((item, index) => {
                         if(searchSong(item)) {
@@ -58,7 +58,8 @@ function MusicList({music, valueSearch}) {
 const mapStateToProps = state => {
     return {
         music: state.musicReducer,
-        valueSearch: state.searchReducer
+        valueSearch: state.searchReducer,
+        themeDark: state.darkModeReducer,
     }
 }
 

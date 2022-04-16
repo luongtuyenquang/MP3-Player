@@ -4,7 +4,7 @@ import { playSongWhenClick } from "../../../redux/actions";
 import { useEffect } from "react";
 import { saveDurationTime } from "../../../redux/actions";
 
-function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSaveDurationTime, durationTime}) {
+function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSaveDurationTime, durationTime, themeDark}) {
     
     const handleClickSong = (index) => {
         handlePlaySongWhenClick(index)
@@ -29,20 +29,27 @@ function MusicItem({item, index, indexCurrent, handlePlaySongWhenClick, handleSa
         return `${minutes}:${formatSecond}`
     }
 
+    const abc = () => {
+        if (indexCurrent === index && themeDark === true) {
+            return '#332940'
+        } else if(indexCurrent === index) {
+            return '#cbbaac'
+        }
+    }
 
     return (
         <div 
-            className='music-item' 
-            style={{backgroundColor: `${indexCurrent === index ? '#cbbaac': ''}`}}
+            className={`music-item ${themeDark === true ? 'dark-item dark-item--hover' : ''}`} 
+            style={{backgroundColor: abc()}}
             onClick={() => handleClickSong(index)}
             key={index}
         >
-            <p className='music-item__stt'>{index + 1}</p>
+            <p className={`music-item__stt ${themeDark === true ? 'dark-item__text' : ''}`}>{index + 1}</p>
             <img src={item.image} alt='' className='music-item__img' />
-            <p className='music-item__song'>{item.name}</p>
-            <p className='music-item__singer'>{item.singer}</p>
+            <p className={`music-item__song ${themeDark === true ? 'dark-item__text' : ''}`}>{item.name}</p>
+            <p className={`music-item__singer ${themeDark === true ? 'dark-item__text' : ''}`}>{item.singer}</p>
             <audio src={item.mp3} className='song' preload="metadata" />
-            <p className='music-item__timer'>
+            <p className={`music-item__timer ${themeDark === true ? 'dark-item__text' : ''}`}>
                 {
                     durationTime.map((item, indexDuration) => {
                         if(index === indexDuration) return item
@@ -70,7 +77,8 @@ const mapStateToProps = state => {
         music: state.musicReducer,
         indexCurrent: state.indexReducer,
         valueSearch: state.searchReducer,
-        durationTime: state.durationTimeReducer
+        durationTime: state.durationTimeReducer,
+        themeDark: state.darkModeReducer,
     }
 }
 
