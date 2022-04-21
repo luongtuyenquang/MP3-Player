@@ -49,8 +49,9 @@
                 background: #34e03c;
                 margin-top: 0px;
             }
+            
             &.dark-item__color::-webkit-slider-thumb {
-                background-color: #D6014F;
+                background-color: $color-main-darkmode;
             }
         }
     }
@@ -106,7 +107,8 @@
 }
 
 .music-playing__control__icon.dark-item__text.music-playing__control__icon--color {
-    border: 3px solid #d6014f;
+    border: 3px solid $color-main-darkmode;
+    color: $color-main-darkmode;
 }
 
 @media only screen and (min-width: 1900px){
@@ -137,6 +139,9 @@
 
             &__icon {
                 &:hover {
+                    background-color: unset;
+                }
+                &.dark-item__text:hover {
                     background-color: unset;
                 }
             }

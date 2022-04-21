@@ -16,7 +16,8 @@
             }
 
             &.dark-item__text {
-                border-color: #d6014fd9;
+                border-color: $color-main-darkmode;
+                color: $color-main-darkmode;
             }
         }
     }

@@ -61,13 +61,16 @@
 }
 
 @media only screen and (max-width: 767px){
-    .dark-mode {
-        & input[type='checkbox'] {
-            height: 2.4rem;
+    .dark {
+        &-mode {
+            & input[type='checkbox'] {
+                height: 2.4rem;
+            }
         }
-        & input[type='checkbox']::before {
-            width: 1.9rem;
-            height: 1.9rem;
+        &-item {
+            &--hover:hover {
+                background-color: #1E1E1E;
+            }
         }
     }
 }

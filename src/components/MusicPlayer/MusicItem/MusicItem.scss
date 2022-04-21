@@ -80,6 +80,10 @@
 
 @media only screen and (max-width: 1023px){
     .music-item {
+        &:hover {
+            background-color: white;
+        }
+
         &__heading {
             span {
                 padding-top: 1rem;
